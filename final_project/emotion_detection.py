@@ -1,5 +1,6 @@
 import requests
 import json
+
 def emotion_detector(text_to_analyse):
     """
     Detecta emociones en el texto usando la API EmotionPredict de Watson NLP.
@@ -8,6 +9,18 @@ def emotion_detector(text_to_analyse):
     Returns:
         dict: Diccionario con puntajes de emociones y la emoción dominante.
     """
+    # === NUEVO: Manejo obligatorio de entradas en blanco (tarea 7) ===
+    if not text_to_analyse or not str(text_to_analyse).strip():
+        return {
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+            'dominant_emotion': None
+        }
+    # =================================================================
+
     url = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'
     headers = {
         "grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}
@@ -41,19 +54,19 @@ def emotion_detector(text_to_analyse):
         return result
     except requests.exceptions.RequestException as e:
         return {
-            'anger': 0.0,
-            'disgust': 0.0,
-            'fear': 0.0,
-            'joy': 0.0,
-            'sadness': 0.0,
-            'dominant_emotion': 'error',
-            'error_message': str(e)}
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+            'dominant_emotion': None
+        }
     except (KeyError, IndexError, TypeError) as e:
         return {
-            'anger': 0.0,
-            'disgust': 0.0,
-            'fear': 0.0,
-            'joy': 0.0,
-            'sadness': 0.0,
-            'dominant_emotion': 'unknown',
-            'error_message': f"Formato de respuesta inesperado: {str(e)}"}
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+            'dominant_emotion': None
+        }
