@@ -3,13 +3,13 @@ from emotion_detection import emotion_detector  # Importa tu función existente
 app = Flask("Emotion Detector")
 @app.route("/emotionDetector")
 def emotionDetector():
-    text_to_analyse = request.args.get('textToAnalyze')
+    text_to_analyse = request.args.get("I think I am having fun")
     if not text_to_analyse:
         return "No text provided", 400  # Opcional: manejo básico de error 
     response = emotion_detector(text_to_analyse)
     
     # Formato EXACTO del ejemplo: JSON con floats y comillas
-    formatted_response = (
+    formatted_response = (  
         f'{{"anger": {response["anger"]}, '
         f'"disgust": {response["disgust"]}, '
         f'"fear": {response["fear"]}, '
@@ -19,5 +19,5 @@ def emotionDetector():
     )
     return formatted_response
 
-#if __name__ == '__main__':
-#    app.run(host='0.0.0.0', port=5500)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
